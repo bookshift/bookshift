@@ -9,7 +9,7 @@ type User = {
   created: Date;
 };
 
-export const getUser = async () => {
+export const getUser = async (): Promise<User | null> => {
   'use server';
   const user = await currentUser();
 
