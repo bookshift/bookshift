@@ -1,5 +1,6 @@
-import React from "react";
-import Button from "./Button";
+"usse client";
+
+import Button from "./button";
 
 const Navbar = () => {
   const btnclasses =

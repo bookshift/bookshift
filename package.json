@@ -9,8 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@clerk/backend": "^0.37.0",
-    "@clerk/clerk-sdk-node": "^4.13.4",
     "@clerk/nextjs": "^4.29.1",
     "@mantine/core": "^7.3.2",
     "@mantine/hooks": "^7.3.2",
