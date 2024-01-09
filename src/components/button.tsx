@@ -4,7 +4,7 @@ import React, { useRef } from "react";
 interface Props {
   clickFn?: () => void;
   children: React.ReactNode;
-  type?: "button" | "submit" | "reset";
+  type: "button" | "submit" | "reset";
 }
 
 const Button = ({ clickFn, children, type }: Props) => {
