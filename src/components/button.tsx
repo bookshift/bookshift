@@ -1,33 +1,25 @@
 "use client";
-
-import Link from "next/link";
 import React, { useRef } from "react";
 
 interface Props {
-  url?: string;
   clickFn?: () => void;
   children: React.ReactNode;
-  btnclass: string;
   type?: "button" | "submit" | "reset";
 }
 
-const Button = ({ url, clickFn, children, btnclass, type }: Props) => {
-  let buttonRef = useRef<HTMLButtonElement>(null);
-  let linkRef = useRef<HTMLAnchorElement>(null);
+const Button = ({ clickFn, children, type }: Props) => {
+  let ref = useRef(null);
 
-  const component = url ? (
-    <Link href={url} passHref legacyBehavior>
-      <a ref={linkRef} className={btnclass}>
-        {children}
-      </a>
-    </Link>
-  ) : (
-    <button className={btnclass} ref={buttonRef} onClick={clickFn} type={type}>
+  return (
+    <button
+      className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl"
+      ref={ref}
+      onClick={clickFn}
+      type={type}
+    >
       {children}
     </button>
   );
-
-  return component;
 };
 
 export default Button;
