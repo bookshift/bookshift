@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --primary-color: #acc5ef;
+  --secondary-color: #efd6ac;
+  --tertiary-color: #2e294e;
+  --background-color: #acefd6;
+  --form-background-color: #f7ebd7;
+  --purple-alt-color: #d6acef;
+  --pink-alt-color: #eface6;
+}
+
+/* tesst 8/
