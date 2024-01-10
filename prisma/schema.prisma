@@ -9,24 +9,24 @@ datasource db {
 }
 
 model User {
-  id          Int           @id @default(autoincrement())
-  email       String        @unique @db.VarChar(255)
-  username    String?       @db.VarChar(255)
-  role        String        @db.VarChar(255)
-  createdAt   DateTime      @default(now())
-  updatedAt   DateTime      @updatedAt
-  Book        Book[]
-  SwapRequest SwapRequest[]
-  SwapRequest SwapRequest[]
+  id                   String        @id @default(uuid())
+  email                String        @unique @db.VarChar(255)
+  username             String?       @db.VarChar(255)
+  role                 String        @db.VarChar(255)
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  books                Book[]
+  sentSwapRequests     SwapRequest[] @relation("sentRequests")
+  receivedSwapRequests SwapRequest[] @relation("receivedRequests")
 }
 
 model Book {
   id           Int           @id @default(autoincrement())
-  title        String?
+  title        String
   authorId     Int
   genreId      Int
   summary      String?
-  userId       Int?
+  userId       String?
   rating       Float?
   status       String?
   condition    String?
@@ -59,16 +59,14 @@ model Author {
 
 model SwapRequest {
   id             Int      @id @default(autoincrement())
-  senderUserId   Int      @map(name: "sender_user_id")
-  receiverUserId Int      @map(name: "reciever_user_id")
-  bookId         Int      @map(name: "bookid")
+  senderUserId   String
+  receiverUserId String
+  bookId         Int
   status         String?
-  createdAt      DateTime @default(now()) @map(name: "created_at")
-  senderUser     User     @relation("senderUser", fields: [senderUserId], references: [id])
-  receiverUser   User     @relation("receiverUser", fields: [receiverUserId], references: [id])
+  createdAt      DateTime @default(now())
+  senderUser     User     @relation("sentRequests", fields: [senderUserId], references: [id])
+  receiverUser   User     @relation("receivedRequests", fields: [receiverUserId], references: [id])
   book           Book     @relation(fields: [bookId], references: [id])
-  User           User?    @relation(fields: [userId], references: [id])
-  userId         Int?
 
   @@map(name: "swap_requests")
 }
