@@ -10,9 +10,6 @@
   },
   "dependencies": {
     "@clerk/nextjs": "^4.29.1",
-    "@mantine/core": "^7.3.2",
-    "@mantine/hooks": "^7.3.2",
-    "@mantine/notifications": "^7.3.2",
     "@prisma/client": "^5.7.1",
     "next": "14.0.4",
     "react": "^18",
