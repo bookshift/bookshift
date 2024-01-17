@@ -9,10 +9,64 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique @db.VarChar(255)
-  username  String? @db.VarChar(255)
-  role String @db.VarChar(255)
-  createdAt DateTime @default(now())
-  updatedAt DateTime  @updatedAt
+  id                   String        @id @default(uuid())
+  email                String        @unique @db.VarChar(255)
+  username             String?       @db.VarChar(255)
+  role                 String        @db.VarChar(255)
+  createdAt            DateTime      @default(now())
+  updatedAt            DateTime      @updatedAt
+  books                Book[]
+  sentSwapRequests     SwapRequest[] @relation("sentRequests")
+  receivedSwapRequests SwapRequest[] @relation("receivedRequests")
+}
+
+model Book {
+  id           Int           @id @default(autoincrement())
+  title        String
+  authorId     Int
+  genreId      Int
+  summary      String?
+  userId       String?
+  rating       Float?
+  status       String?
+  condition    String?
+  createdAt    DateTime      @default(now()) @map(name: "created_at")
+  author       Author        @relation(fields: [authorId], references: [id])
+  genre        Genre         @relation(fields: [genreId], references: [id])
+  user         User?         @relation(fields: [userId], references: [id])
+  swapRequests SwapRequest[]
+
+  @@map(name: "books")
+}
+
+model Genre {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  books     Book[]
+
+  @@map(name: "genre")
+}
+
+model Author {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  books     Book[]
+
+  @@map(name: "author")
+}
+
+model SwapRequest {
+  id             Int      @id @default(autoincrement())
+  senderUserId   String
+  receiverUserId String
+  bookId         Int
+  status         String?
+  createdAt      DateTime @default(now())
+  senderUser     User     @relation("sentRequests", fields: [senderUserId], references: [id])
+  receiverUser   User     @relation("receivedRequests", fields: [receiverUserId], references: [id])
+  book           Book     @relation(fields: [bookId], references: [id])
+
+  @@map(name: "swap_requests")
 }
