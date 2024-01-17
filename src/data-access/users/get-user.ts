@@ -4,7 +4,7 @@ type User = {
   firstName: string | null;
   lastName: string | null;
   username: string | null;
-  id: string;
+  clerkId: string;
   email: string;
   created: Date;
 };
@@ -25,10 +25,12 @@ export const getUser = async (): Promise<User | null> => {
     firstName,
     lastName,
     username,
-    id,
+    clerkId: id,
     email: emailAddress,
     created: userCreationDate,
   };
+
+  console.log(userData);
 
   return userData;
 };
