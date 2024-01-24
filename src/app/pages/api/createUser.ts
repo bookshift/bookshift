@@ -5,7 +5,6 @@ import { BookUser } from "../../../types/user";
 
 export default async function createUser(user: BookUser) {
   const userData = user;
-  console.log(userData);
 
   if (prisma) {
     const newUser = await prisma.user.create({

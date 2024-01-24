@@ -27,36 +27,5 @@ export default function Home() {
     );
   }
 
-  //const alreadyRegistered = await userRegistered(user.id);
-
-  // console.log(alreadyRegistered);
-
-  // if (!alreadyRegistered) {
-  //   const pushdata: BookUser = {
-  //     firstname: user.firstName ?? "",
-  //     lastname: user.lastName ?? "",
-  //     email: user.emailAddresses[0].emailAddress,
-  //     username: user.username || user.emailAddresses[0].emailAddress,
-  //     clerkid: user.id,
-  //   };
-
-  //   createUser(pushdata);
-  // }
-
-  // if (alreadyRegistered) {
-  //   return (
-  //     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-  //       <h1>Bookshift</h1>
-
-  //       <h1>User Profile</h1>
-  //       <p>
-  //         Name: {alreadyRegistered?.firstname} {alreadyRegistered?.lastname}
-  //       </p>
-  //       <p>Email: {alreadyRegistered?.email}</p>
-
-  //       <h1> Sign out </h1>
-  //       <SignOutButton />
-  //     </main>
-  //   );
-  // }
+  userRegistered();
 }

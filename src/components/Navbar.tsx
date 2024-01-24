@@ -7,7 +7,7 @@ const Navbar = () => {
 
   return (
     <nav className="bg-amber-400 p-2 rounded-3xl w-[calc(100%-2rem)] max-w-24 mx-auto ">
-      <div className="container mx-auto flex  justify-between items-center gap-9">
+      <div className="container mx-auto flex-wrap justify-between items-center gap-20">
         <Link href="/">logo</Link>
 
         <div className="flex gap-2 items-center grid grid-cols-1 grid-rows-1  w-full">
