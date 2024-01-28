@@ -1,25 +1,27 @@
+"use server";
+
 import { BookUser } from "@/types/user";
+import prisma from "../../../prisma/globalPrismaClient";
 import { currentUser } from "@clerk/nextjs";
 
-export const getUser = async (): Promise<BookUser | null> => {
+export default async function getUser() {
   const user = await currentUser();
 
   if (!user) {
-    return null;
+    return undefined;
   }
 
-  const { firstName, lastName, username, id, emailAddresses } = user;
-  const emailAddress = emailAddresses[0]?.emailAddress || "";
+  if (!prisma) {
+    throw new Error("Prisma client is not available.");
+  }
 
-  const userData: BookUser = {
-    firstname: firstName !== null ? firstName : "",
-    lastname: lastName ?? "",
-    username: username || emailAddress,
-    clerkid: id,
-    email: emailAddress,
-  };
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      clerkid: user.id,
+    },
+  });
 
-  console.log(userData);
-
-  return userData;
-};
+  if (existingUser) {
+    return existingUser;
+  }
+}
