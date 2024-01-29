@@ -1,9 +1,10 @@
 "use client";
 import createUser from "@/data-access/users/create-user";
+import getUser from "@/data-access/users/get-user";
 import { BookUser } from "@/types/user";
 import { SignOutButton, useUser } from "@clerk/nextjs";
 
-export default function Home() {
+export default async function Home() {
   const { isLoaded, isSignedIn, user } = useUser();
 
   if (!isLoaded) {
@@ -33,20 +34,24 @@ export default function Home() {
     };
 
     createUser(pushdata);
+
+    const logedInUser = await getUser();
+
+    if (logedInUser) {
+      return (
+        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+          <h1>Bookshift</h1>
+
+          <h1>User Profile</h1>
+          <p>
+            Name: {logedInUser?.firstname} {logedInUser?.lastname}
+          </p>
+          <p>Email: {logedInUser?.email}</p>
+
+          <h1> Sign out </h1>
+          <SignOutButton />
+        </main>
+      );
+    }
   }
-
-  return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1>Bookshift</h1>
-
-      <h1>User Profile</h1>
-      <p>
-        Name: {user.firstName} {user.lastName}
-      </p>
-      <p>Email: {user.emailAddresses[0].emailAddress}</p>
-
-      <h1> Sign out </h1>
-      <SignOutButton />
-    </main>
-  );
 }

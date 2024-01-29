@@ -2,23 +2,18 @@
 
 import prisma from "../../../prisma/globalPrismaClient";
 import { BookUser } from "../../types/user";
+import getUser from "./get-user";
 
 export default async function createUser(user: BookUser) {
   const userData = user;
-  console.log(userData);
 
   if (!prisma) {
     throw new Error("Prisma is not defined.");
   }
 
-  const existingUser = await prisma.user.findUnique({
-    where: {
-      clerkid: userData.clerkid,
-    },
-  });
+  const existingUser = await getUser();
 
   if (existingUser) {
-    console.log("User already exists.");
     return existingUser;
   }
 
