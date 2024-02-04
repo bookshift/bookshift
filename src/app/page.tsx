@@ -9,7 +9,7 @@ import Link from "next/link";
 
 export default function Home() {
   const { isLoaded, isSignedIn, user } = useUser();
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [loggedInUser, setLoggedInUser] = useState<BookUser | null>(null);
 
   useEffect(() => {
     if (user) {
@@ -64,6 +64,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <h1>Bookshift</h1>
       <h1>User Profile</h1>
+
       <p>
         Name: {loggedInUser.firstname} {loggedInUser.lastname}
       </p>
