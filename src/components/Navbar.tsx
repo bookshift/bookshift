@@ -6,9 +6,9 @@ const Navbar = () => {
     'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl';
 
   return (
-    <nav className='bg-amber-400 p-2 rounded-3xl w-[calc(100%-2rem)] max-w-24 '>
-      <div className='container mx-auto flex  justify-between items-center gap-9'>
-        <Link href='/'>logo</Link>
+    <nav className="bg-amber-400 p-2 rounded-3xl w-[calc(100%-2rem)] max-w-24 mx-auto ">
+      <div className="container mx-auto flex-wrap justify-between items-center gap-20">
+        <Link href="/">logo</Link>
 
         <div className='gap-2 items-center grid grid-cols-1 grid-rows-1  w-full'>
           <input
@@ -27,9 +27,16 @@ const Navbar = () => {
             Library
           </Link>
 
-          <Link href='/' className={btnclasses}>
-            <span className='flex gap-2  items-center'>
+          <Link href="/sign-in" className={btnclasses}>
+            <span className="flex gap-2  items-center">
               Login
+              <FaUser />
+            </span>
+          </Link>
+
+          <Link href="/sign-up" className={btnclasses}>
+            <span className="flex gap-2  items-center">
+              Register
               <FaUser />
             </span>
           </Link>
