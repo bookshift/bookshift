@@ -1,34 +1,27 @@
-import { currentUser } from '@clerk/nextjs';
+"use server";
 
-type User = {
-  firstName: string | null;
-  lastName: string | null;
-  username: string | null;
-  id: string;
-  email: string;
-  created: Date;
-};
+import { BookUser } from "@/types/user";
+import prisma from "../../../prisma/globalPrismaClient";
+import { currentUser } from "@clerk/nextjs";
 
-export const getUser = async (): Promise<User | null> => {
-  'use server';
+export default async function getUser() {
   const user = await currentUser();
 
   if (!user) {
-    return null;
+    return undefined;
   }
 
-  const { firstName, lastName, username, id, emailAddresses, createdAt } = user;
-  const emailAddress = emailAddresses[0]?.emailAddress || '';
-  const userCreationDate = new Date(createdAt);
+  if (!prisma) {
+    throw new Error("Prisma client is not available.");
+  }
 
-  const userData: User = {
-    firstName,
-    lastName,
-    username,
-    id,
-    email: emailAddress,
-    created: userCreationDate,
-  };
+  const existingUser = await prisma.user.findUnique({
+    where: {
+      clerkid: user.id,
+    },
+  });
 
-  return userData;
-};
+  if (existingUser) {
+    return existingUser;
+  }
+}

@@ -1,29 +1,29 @@
-import Link from "next/link";
-import { FaUser, FaSearch } from "react-icons/fa";
+import Link from 'next/link';
+import { FaUser, FaSearch } from 'react-icons/fa';
 
 const Navbar = () => {
   const btnclasses =
-    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl";
+    'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl';
 
   return (
     <nav className="bg-amber-400 p-2 rounded-3xl w-[calc(100%-2rem)] max-w-24 mx-auto ">
       <div className="container mx-auto flex-wrap justify-between items-center gap-20">
         <Link href="/">logo</Link>
 
-        <div className="flex gap-2 items-center grid grid-cols-1 grid-rows-1  w-full">
+        <div className='gap-2 items-center grid grid-cols-1 grid-rows-1  w-full'>
           <input
-            type="text"
-            className="rounded-xl col-start-1 row-start-1 p-2 "
+            type='text'
+            className='rounded-xl col-start-1 row-start-1 p-2 '
           />
 
-          <FaSearch className="col-start-1 row-start-1 justify-self-end me-2" />
+          <FaSearch className='col-start-1 row-start-1 justify-self-end me-2' />
         </div>
-        <div className="flex gap-x-5 ">
-          <Link href="/" className={btnclasses}>
+        <div className='flex gap-x-5 '>
+          <Link href='/' className={btnclasses}>
             Requests
           </Link>
 
-          <Link href="/" className={btnclasses}>
+          <Link href='/' className={btnclasses}>
             Library
           </Link>
 
