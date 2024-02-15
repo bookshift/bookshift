@@ -23,9 +23,7 @@ const ChatUserList = () => {
   return (
     <>
       {users.map((user) => (
-        // Use React.Fragment to wrap multiple elements being returned from map
         <React.Fragment key={user.id}>
-          {/* Render the ChatUser component and user details */}
           <ChatUser user={user} lastMessage="hello" />
         </React.Fragment>
       ))}
