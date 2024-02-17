@@ -1,5 +1,3 @@
-"use client";
-
 import ChatUserList from "@/components/ChatUserList";
 import React from "react";
 

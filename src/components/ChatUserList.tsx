@@ -1,6 +1,8 @@
+"use client";
+
 import getAllUsers from "@/data-access/users/get-all-users";
 import React, { useEffect, useState } from "react";
-import ChatUser from "./chatuser";
+import ChatUser from "./ChatUser";
 import { BookUser } from "@/types/user";
 
 const ChatUserList = () => {
