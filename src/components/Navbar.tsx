@@ -10,24 +10,28 @@ const Navbar = () => {
       <div className="container mx-auto flex-wrap justify-between items-center gap-20">
         <Link href="/">logo</Link>
 
-        <div className='gap-2 items-center grid grid-cols-1 grid-rows-1  w-full'>
+        <div className="gap-2 items-center grid grid-cols-1 grid-rows-1  w-full">
           <input
-            type='text'
-            className='rounded-xl col-start-1 row-start-1 p-2 '
+            type="text"
+            className="rounded-xl col-start-1 row-start-1 p-2 "
           />
 
-          <FaSearch className='col-start-1 row-start-1 justify-self-end me-2' />
+          <FaSearch className="col-start-1 row-start-1 justify-self-end me-2" />
         </div>
-        <div className='flex gap-x-5 '>
-          <Link href='/' className={btnclasses}>
+        <div className="flex gap-x-5 ">
+          <Link href="/" className={btnclasses}>
             Requests
           </Link>
 
-          <Link href='/' className={btnclasses}>
+          <Link href="/" className={btnclasses}>
             Library
           </Link>
 
-          <Link href="/sign-in" className={btnclasses}>
+          <Link href="/chat" className={btnclasses}>
+            Chat
+          </Link>
+
+          <Link href="/" className={btnclasses}>
             <span className="flex gap-2  items-center">
               Login
               <FaUser />
