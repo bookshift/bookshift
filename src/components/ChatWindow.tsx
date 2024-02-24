@@ -1,14 +1,31 @@
 import React from "react";
-import { FaMicrophone, FaPlus, FaSearch, FaSmile } from "react-icons/fa";
-import { FiSend } from "react-icons/fi";
-
-import { FaRegFaceSmile } from "react-icons/fa6";
+import ChatUserInputForm from "./ChatUserInputForm";
+import createMessage from "@/data-access/messages/create-message";
+import { Message } from "@/types/message";
 
 interface ChatWindowProps {
   className: string;
+  sendersId: string;
+  receiversId: string;
 }
 
-const ChatWindow = ({ className }: ChatWindowProps) => {
+const ChatWindow = ({ className, sendersId, receiversId }: ChatWindowProps) => {
+  function handleSubmit(
+    inputValue: string,
+    sendersId: string,
+    receiversId: string
+  ) {
+    const message: Message = {
+      sendingUserId: sendersId,
+      receivingUserId: receiversId,
+      messageBody: inputValue,
+      read: false,
+    };
+
+    console.log("Message to be sent:", message);
+    createMessage(message);
+  }
+
   return (
     <>
       <div className={className}>
@@ -16,22 +33,15 @@ const ChatWindow = ({ className }: ChatWindowProps) => {
           <div className="grow">
             <h1> Message area</h1>
           </div>
-          <div className="flex flex-row items-center gap-3 bg-secondary-color p-2 rounded-md border-2 border-tertiary-color">
-            <button>
-              <FaRegFaceSmile size={25} />
-            </button>
-            <button>
-              <FaPlus size={25} />
-            </button>
-            <input
-              type="text"
-              className="rounded-xl col-start-1 row-start-1 p-2 bg-form-background-color border-2 border-tertiary-color grow"
-            ></input>
-            <button>
-              <FaMicrophone size={25} />
-              <FiSend size={25} />
-            </button>
-          </div>
+          <ChatUserInputForm
+            sendersId={sendersId}
+            receiversId={receiversId}
+            sumbitfunction={(
+              inputValue: string,
+              sendersId: string,
+              receiversId: string
+            ) => handleSubmit(inputValue, sendersId, receiversId)}
+          />
         </div>
       </div>
     </>

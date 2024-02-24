@@ -1,5 +1,3 @@
-"use client";
-
 import getAllUsers from "@/data-access/users/get-all-users";
 import React, { useEffect, useState } from "react";
 import ChatUser from "./ChatUser";
@@ -8,9 +6,10 @@ import { FaSearch } from "react-icons/fa";
 
 interface ChatUserListProps {
   className: string;
+  onUserClick: (userId: string) => void;
 }
 
-const ChatUserList = ({ className }: ChatUserListProps) => {
+const ChatUserList = ({ className, onUserClick }: ChatUserListProps) => {
   const [users, setUsers] = useState<BookUser[]>([]);
 
   useEffect(() => {
@@ -44,7 +43,11 @@ const ChatUserList = ({ className }: ChatUserListProps) => {
 
         {users.map((user) => (
           <React.Fragment key={user.id}>
-            <ChatUser user={user} lastMessage="hello" />
+            <ChatUser
+              user={user}
+              lastMessage="hello"
+              onClick={() => onUserClick(user.id)}
+            />
           </React.Fragment>
         ))}
       </div>

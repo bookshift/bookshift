@@ -20,6 +20,8 @@ model User {
   books                Book[]
   sentSwapRequests     SwapRequest[] @relation("sentRequests")
   receivedSwapRequests SwapRequest[] @relation("receivedRequests")
+   sentMessages         Message[]     @relation("SendingUser")
+  receivedMessages     Message[]     @relation("ReceivingUser")
 }
 
 model Book {
@@ -71,4 +73,17 @@ model SwapRequest {
   book           Book     @relation(fields: [bookId], references: [id])
 
   @@map(name: "swap_requests")
+}
+
+model Message {
+  id              String    @id @default(uuid())
+  sendingUserId   String
+  receivingUserId String
+  messageBody     String
+  sentTimestamp   DateTime @default(now())
+  read       Boolean  @default(false)
+  sendingUser     User     @relation("SendingUser", fields: [sendingUserId], references: [id])
+  receivingUser   User     @relation("ReceivingUser", fields: [receivingUserId], references: [id])
+
+  @@map(name: "messages")
 }
