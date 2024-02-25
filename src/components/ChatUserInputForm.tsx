@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { FaPlus, FaMicrophone } from "react-icons/fa";
 import { FaRegFaceSmile } from "react-icons/fa6";
 import { FiSend } from "react-icons/fi";
@@ -22,7 +22,7 @@ const ChatUserInputForm = ({
 }: ChatUserInputFormProps) => {
   const [inputValue, setInputValue] = useState("");
 
-  const handleInputChange = (e: any) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value);
   };
 
