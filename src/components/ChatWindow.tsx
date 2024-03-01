@@ -1,7 +1,7 @@
-import React from "react";
 import ChatUserInputForm from "./ChatUserInputForm";
 import createMessage from "@/data-access/messages/create-message";
 import { Message } from "@/types/message";
+import MessageWindow from "./MessageWindow";
 
 interface ChatWindowProps {
   className: string;
@@ -31,7 +31,7 @@ const ChatWindow = ({ className, sendersId, receiversId }: ChatWindowProps) => {
       <div className={className}>
         <div className="flex flex-col h-full">
           <div className="grow">
-            <h1> Message area</h1>
+            <MessageWindow sendersId={sendersId} receiversId={receiversId} />
           </div>
           <ChatUserInputForm
             sendersId={sendersId}
