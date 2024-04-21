@@ -1,9 +1,10 @@
-import Link from 'next/link';
-import { FaUser, FaSearch } from 'react-icons/fa';
+import { SignOutButton } from "@clerk/nextjs";
+import Link from "next/link";
+import { FaUser, FaSearch } from "react-icons/fa";
 
 const Navbar = () => {
   const btnclasses =
-    'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl';
+    "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-3xl";
 
   return (
     <nav className="bg-amber-400 p-2 rounded-3xl w-[calc(100%-2rem)] max-w-24 mx-auto ">
@@ -44,6 +45,10 @@ const Navbar = () => {
               <FaUser />
             </span>
           </Link>
+
+          <SignOutButton>
+            <button className={btnclasses}>Sign out</button>
+          </SignOutButton>
         </div>
       </div>
     </nav>
