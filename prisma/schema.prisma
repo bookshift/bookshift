@@ -2,10 +2,12 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// prisma/schema.prisma
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL2")
-  relationMode = "prisma"
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  // uncomment next line if you use Prisma <5.10
+  // directUrl = env("DATABASE_URL_UNPOOLED")
 }
 
 model User {
@@ -15,12 +17,12 @@ model User {
   firstname            String?       @db.VarChar(255)
   lastname             String?       @db.VarChar(255)
   clerkid              String        @unique @db.VarChar(255)
-  createdAt            DateTime      @default(now())
-  updatedAt            DateTime      @updatedAt
+  createdAt            DateTime      @default(now()) @db.Timestamp(3)
+  updatedAt            DateTime      @updatedAt @db.Timestamp(3)
   books                Book[]
   sentSwapRequests     SwapRequest[] @relation("sentRequests")
   receivedSwapRequests SwapRequest[] @relation("receivedRequests")
-   sentMessages         Message[]     @relation("SendingUser")
+  sentMessages         Message[]     @relation("SendingUser")
   receivedMessages     Message[]     @relation("ReceivingUser")
 }
 
@@ -34,31 +36,31 @@ model Book {
   rating       Float?
   status       String?
   condition    String?
-  createdAt    DateTime      @default(now()) @map(name: "created_at")
+  createdAt    DateTime      @default(now()) @db.Timestamp(3) @map("created_at")
   author       Author        @relation(fields: [authorId], references: [id])
   genre        Genre         @relation(fields: [genreId], references: [id])
   user         User?         @relation(fields: [userId], references: [id])
   swapRequests SwapRequest[]
 
-  @@map(name: "books")
+  @@map("books")
 }
 
 model Genre {
   id        Int      @id @default(autoincrement())
   name      String?
-  createdAt DateTime @default(now()) @map(name: "created_at")
+  createdAt DateTime @default(now()) @db.Timestamp(3) @map("created_at")
   books     Book[]
 
-  @@map(name: "genre")
+  @@map("genre")
 }
 
 model Author {
   id        Int      @id @default(autoincrement())
   name      String?
-  createdAt DateTime @default(now()) @map(name: "created_at")
+  createdAt DateTime @default(now()) @db.Timestamp(3) @map("created_at")
   books     Book[]
 
-  @@map(name: "author")
+  @@map("author")
 }
 
 model SwapRequest {
@@ -67,12 +69,12 @@ model SwapRequest {
   receiverUserId String
   bookId         Int
   status         String?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime @default(now()) @db.Timestamp(3)
   senderUser     User     @relation("sentRequests", fields: [senderUserId], references: [id])
   receiverUser   User     @relation("receivedRequests", fields: [receiverUserId], references: [id])
   book           Book     @relation(fields: [bookId], references: [id])
 
-  @@map(name: "swap_requests")
+  @@map("swap_requests")
 }
 
 model Message {
@@ -80,10 +82,10 @@ model Message {
   sendingUserId   String
   receivingUserId String
   messageBody     String
-  sentTimestamp   DateTime @default(now())
-  read       Boolean  @default(false)
+  sentTimestamp   DateTime @default(now()) @db.Timestamp(3)
+  read            Boolean  @default(false)
   sendingUser     User     @relation("SendingUser", fields: [sendingUserId], references: [id])
   receivingUser   User     @relation("ReceivingUser", fields: [receivingUserId], references: [id])
 
-  @@map(name: "messages")
+  @@map("messages")
 }
